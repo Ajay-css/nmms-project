@@ -2,9 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "vite.config.js",
-      "use": "@vercel/static-build",
-      "config": {}
+      "src": "package.json",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
@@ -13,7 +12,6 @@
       "dest": "/index.html"
     }
   ],
-  "framework": "vite",
   "env": {
     "VITE_BACKEND_URL": "https://nmms-project-server.onrender.com"
   }
