@@ -18,7 +18,7 @@ function Scanner() {
       video.srcObject = stream;
       await video.play();
 
-      // Capture one frame after 3 seconds
+      // Capture frame after few seconds
       setTimeout(async () => {
         const canvas = document.createElement("canvas");
         canvas.width = video.videoWidth;
@@ -26,8 +26,12 @@ function Scanner() {
         const ctx = canvas.getContext("2d");
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        const blob = await new Promise((res) => canvas.toBlob(res, "image/jpeg"));
-        stream.getTracks().forEach((track) => track.stop()); // close camera
+        const blob = await new Promise((res) =>
+          canvas.toBlob(res, "image/jpeg")
+        );
+
+        // stop camera
+        stream.getTracks().forEach((track) => track.stop());
 
         const formData = new FormData();
         formData.append("file", blob, "scan.jpg");
@@ -35,11 +39,13 @@ function Scanner() {
         formData.append("subject", "MAT");
         formData.append("answer_key", "ABCDABCDABCDABCD");
 
-        // ✅ Call your Node.js backend (not Flask directly)
+        // ✅ Send to Node backend
         const res = await axios.post(
-          "https://your-node-backend-url.onrender.com/api/scan",
+          "https://nmms-project-server.onrender.com/api/scan",
           formData,
-          { headers: { "Content-Type": "multipart/form-data" } }
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
         );
 
         setResult(res.data.data);
@@ -47,7 +53,7 @@ function Scanner() {
       }, 3000);
     } catch (err) {
       console.error(err);
-      alert("Camera not accessible or error capturing image.");
+      alert("Camera not accessible or permission denied.");
       setScanning(false);
     }
   };
@@ -62,7 +68,7 @@ function Scanner() {
       {scanning && (
         <div className="video-wrapper">
           <video ref={videoRef} autoPlay playsInline muted className="video-feed"></video>
-          <p className="scanning-text">Scanning … hold your OMR sheet steady</p>
+          <p className="scanning-text">Scanning... Hold OMR steady</p>
         </div>
       )}
       {result && (
@@ -71,7 +77,7 @@ function Scanner() {
           <p>Student: {result.studentName}</p>
           <p>Subject: {result.subject}</p>
           <p>Score: {result.score}</p>
-          <button onClick={() => setResult(null)}>Scan Again</button>
+          <button onClick={() => setResult(null)}>🔄 Scan Again</button>
         </div>
       )}
     </div>

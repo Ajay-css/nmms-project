@@ -9,7 +9,7 @@ function AdminPanel() {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      await axios.post("http://localhost:4000/api/admin/upload-key", formData, {
+      await axios.post("https://nmms-project-server.onrender.com/api/admin/upload-key", formData, {
         headers: { Authorization: localStorage.getItem("token") }
       });
       alert("Answer key uploaded successfully!");
@@ -20,7 +20,7 @@ function AdminPanel() {
 
   const clearResults = async () => {
     try {
-      await axios.delete("http://localhost:4000/api/admin/clear-results", {
+      await axios.delete("https://nmms-project-server.onrender.com/api/admin/clear-results", {
         headers: { Authorization: localStorage.getItem("token") }
       });
       alert("All results cleared!");

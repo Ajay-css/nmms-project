@@ -8,7 +8,7 @@ function Login() {
 
   const login = async () => {
     try {
-      const res = await axios.post("http://localhost:4000/api/admin/login", { username : email, password });
+      const res = await axios.post("https://nmms-project-server.onrender.com/api/admin/login", { username : email, password });
       localStorage.setItem("token", res.data.token);
       window.location.href = "/panel";
     } catch {

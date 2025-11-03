@@ -7,7 +7,7 @@ function ResultsPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get("http://localhost:4000/api/results");
+      const res = await axios.get("https://nmms-project-server.onrender.com/api/results");
       setResults(res.data);
     };
     fetchData();
