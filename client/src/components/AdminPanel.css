@@ -1,0 +1,12 @@
+.admin-panel {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.clear-btn {
+  background: crimson;
+}
+
+.clear-btn:hover {
+  background: red;
+}

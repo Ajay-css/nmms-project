@@ -1,0 +1,37 @@
+.navbar {
+  background: linear-gradient(135deg, #1a73e8, #4dabf7);
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 15px 15px;
+  animation: slideDown 1s ease;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-60px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.links a {
+  color: white;
+  margin: 0 12px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.links a:hover {
+  text-shadow: 0 0 10px #fff;
+}
+
+@media (max-width: 600px) {
+  .navbar { flex-direction: column; }
+  .links a { display: block; margin: 5px 0; }
+}
